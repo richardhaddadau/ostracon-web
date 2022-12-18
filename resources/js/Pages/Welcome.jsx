@@ -1,102 +1,170 @@
-import { useState } from "react";
-import ReactLogo from "../Components/ReactLogo";
+import React, { useState } from "react";
+// import {Helmet} from 'react-helmet-async';
+import SideNav from "../Components/SideNav";
 
-const Welcome = () => {
-  const [count, setCount] = useState(0);
+import {
+  Bookmark,
+  Flame,
+  Globe,
+  Home,
+  Ostracon,
+  Settings,
+} from "../Components/icons/Ostracon-Std";
+import TopNav from "../Components/TopNav";
+import {
+  Bookmark as BookmarkActive,
+  Flame as FlameActive,
+  Globe as GlobeActive,
+  Home as HomeActive,
+  Settings as SettingsActive,
+} from "../Components/icons/Ostracon-Active";
+import FeedScreen from "./PageComponents/FeedScreen";
+import SettingsScreen from "./PageComponents/SettingsScreen";
+import OPlusScreen from "./PageComponents/OPlusScreen";
+import ChaptersScreen from "./PageComponents/ChaptersScreen";
+import TrendingScreen from "./PageComponents/TrendingScreen";
+import GlobalScreen from "./PageComponents/GlobalScreen";
+
+export default function Welcome(props) {
+  //States
+  const [currentPage, setCurrentPage] = useState("home");
+  const [mainScreen, setMainScreen] = useState("home");
+
+  const changePage = (
+      screen = null,
+      rememberPrevious = false,
+      recallPrevious = false
+  ) => {
+    const previousPage = localStorage.getItem("rememberPage")
+        ? localStorage.getItem("rememberPage")
+        : currentPage;
+
+    setMainScreen(recallPrevious ? previousPage : screen);
+
+    if (!rememberPrevious) {
+      setCurrentPage(screen);
+    } else {
+      localStorage.setItem("rememberPage", currentPage);
+    }
+  };
+
+  const pages = {
+    home: {
+      title: "Home",
+      icon: (
+          <Home
+              size={20}
+              style="fill-primary-300 hover:fill-primary-500"
+          />
+      ),
+      iconActive: (
+          <HomeActive
+              size={20}
+              style="fill-primary-500 translate-all duration-500"
+          />
+      ),
+      component: <FeedScreen />,
+      sideNav: true,
+    },
+    global: {
+      title: "Global",
+      icon: (
+          <Globe
+              size={20}
+              style="fill-primary-300 hover:fill-primary-500 translate-all duration-500"
+          />
+      ),
+      iconActive: (
+          <GlobeActive
+              size={20}
+              style="fill-primary-500 translate-all duration-500"
+          />
+      ),
+      component: <GlobalScreen />,
+      sideNav: true,
+    },
+    trending: {
+      title: "Trending",
+      icon: (
+          <Flame
+              size={20}
+              style="fill-primary-300 hover:fill-primary-500 translate-all duration-500"
+          />
+      ),
+      iconActive: (
+          <FlameActive
+              size={20}
+              style="fill-primary-500 translate-all duration-500"
+          />
+      ),
+      component: <TrendingScreen />,
+      sideNav: true,
+    },
+    chapters: {
+      title: "Chapters",
+      icon: <Bookmark size={20} />,
+      iconActive: (
+          <BookmarkActive
+              size={20}
+              style="fill-primary-500 translate-all duration-500"
+          />
+      ),
+      component: <ChaptersScreen />,
+      sideNav: true,
+    },
+    ostraconPlus: {
+      title: "Ostracon Plus",
+      icon: (
+          <Ostracon
+              size={24}
+              style="fill-secondary-400 hover:fill-secondary-500 translate-all duration-500"
+          />
+      ),
+      iconActive: (
+          <Ostracon
+              size={24}
+              style="fill-secondary-500 translate-all duration-500"
+          />
+      ),
+      component: <OPlusScreen />,
+      sideNav: true,
+    },
+    settings: {
+      title: "Settings",
+      icon: (
+          <Settings
+              size={24}
+              style="fill-secondary-400 hover:fill-secondary-500 translate-all duration-500"
+          />
+      ),
+      iconActive: (
+          <Settings
+              size={24}
+              style="fill-secondary-500 translate-all duration-500"
+          />
+      ),
+      component: <SettingsScreen />,
+      sideNav: false,
+    },
+  };
 
   return (
-    <div className="md:p-6 relative flex items-center justify-center min-h-screen bg-stone-50 dark:bg-zinc-800">
-      <section className="mx-auto flex flex-col items-center max-w-5xl">
-        <img src="/ex-logo.svg" className="h-20" alt="EXPO Logo" />
-        <h1 className="mb-4 text-4xl font-black uppercase text-rose-600 tracking-wide text-center">
-          Expact
-        </h1>
+      <>
+        {/*<Helmet>*/}
+        {/*  <title>Welcome</title>*/}
+        {/*</Helmet>*/}
+        <div className="relative flex flex-col min-h-fit h-screen overflow-hidden">
+          <TopNav mainScreen={mainScreen} changePage={changePage} />
+          <div className="grow relative flex flex-row bg-base-light dark:bg-base-dark h-1">
+            <SideNav
+                links={pages}
+                mainScreen={mainScreen}
+                changePage={changePage}
+            />
 
-        <button
-          className="mb-10 py-2 px-5 border border-rose-500 hover:border-rose-600 hover:bg-rose-600 rounded-sm shadow-lg dark:shadow-xl shadow-zinc-300 dark:shadow-zinc-900 text-rose-600 hover:text-rose-100 font-medium transition-all duration-300"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 bg-zinc-100 dark:bg-zinc-300 rounded-sm shadow-xl dark:shadow-zinc-900">
-          <article className="p-4">
-            <div className="mb-4 flex items-center">
-              <img src="/ex-logo.svg" className="h-6" alt="EXPACT Logo" />
-              <h1 className="text-zinc-800 text-lg font-bold">About</h1>
-            </div>
-
-            <p className="md:md:ml-8 text-sm dark:text-zinc-600">
-              What started off as just a quick boilerplate with a good folder
-              structure is slowly growing into a starter kit that sets your
-              React app off to a powerful start.
-            </p>
-          </article>
-
-          <article className="p-5 border-l border-zinc-200">
-            <div className="mb-4 flex gap-0.5 items-center">
-              <img src="/vite.svg" className="h-6" alt="Vite logo" />
-              <h1 className="text-zinc-800 text-lg font-bold">
-                <a
-                  href="https://vitejs.dev/"
-                  title="Vite - Next Generation Frontend Tooling"
-                >
-                  Vite
-                </a>
-              </h1>
-            </div>
-
-            <p className="md:ml-8 text-sm dark:text-zinc-600">
-              Vite is a fast and powerful development environment that makes app
-              building with any frontend framework an absolute breeze.
-            </p>
-          </article>
-
-          <article className="p-5 border-t border-zinc-200">
-            <div className="mb-4 flex gap-1 items-center">
-              <img
-                src="/tailwindcss-mark.svg"
-                className="h-6"
-                alt="Tailwind logo"
-              />
-              <h1 className="text-zinc-800 text-lg font-bold">
-                <a
-                  href="https://tailwindcss.com/"
-                  title="TailwindCSS - Rapidly build modern websites without ever leaving your HTML."
-                >
-                  TailwindCSS
-                </a>
-              </h1>
-            </div>
-
-            <p className="md:ml-8 text-sm dark:text-zinc-600">
-              A lightweight but very versatile, and really popular, CSS
-              framework that makes styling quicker and more consistent whether
-              working individually or in a team.
-            </p>
-          </article>
-
-          <article className="p-5 border-l border-t border-zinc-200">
-            <div className="mb-4 flex gap-1 items-center">
-              <h1 className="text-zinc-800 text-lg font-bold">
-                <a
-                  href="https://github.com/higherordermalfunction/expact#roadmap"
-                  title="EXPACT Roadmap on Github"
-                >
-                  Roadmap
-                </a>
-              </h1>
-            </div>
-
-            <p className="md:ml-8 text-sm dark:text-zinc-600">
-              See the progress as EXPACT grows and becomes more complete and a
-              more useful starter kit for all types of React projects.
-            </p>
-          </article>
+            {pages[mainScreen].component}
+          </div>
         </div>
-      </section>
-    </div>
+      </>
   );
-};
-
-export default Welcome;
+}

@@ -56,10 +56,10 @@ const Post = () => {
             {makeAnonymous ? null : (
                 <div className="pb-3 flex flex-col w-full border-b-2 border-primary-200">
                     <div
-                        className="mb-1.5 cursor-pointer flex flex-row gap-2 items-center w-max font-bold text-lg text-primary-500 dark:text-zinc-400 hover:dark:text-zinc-100 transition-all duration-300"
+                        className="mb-1.5 cursor-pointer flex flex-row gap-2 items-center w-max font-bold text-lg text-primary-400 hover:text-primary-500 dark:text-zinc-400 hover:dark:text-zinc-100 transition-all duration-300"
                         id="username"
                     >
-                        <Avatar sx={{ width: 50, height: 50 }}>SA</Avatar>
+                        <Avatar sx={{ width: 50, height: 50 }} className="hover:scale-105 transition-all duration-150">SA</Avatar>
                         <p>Sterling Archer</p>
                     </div>
                     <div

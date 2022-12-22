@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
+import { MentionsInput, Mention } from 'react-mentions'
+import TextInput from "../TextInput";
 
 const CreatePost = () => {
     // States
@@ -54,42 +56,53 @@ const CreatePost = () => {
         // console.log(processedText);
     };
 
+    const handleChange = () => {
+
+    }
+
     return (
         <article className="p-5 flex flex-col bg-surface-light dark:bg-primary-500 rounded-2xl border border-white dark:border-black w-full max-w-2xl">
             <div
                 id="new-post-wrapper"
-                className="mb-2 flex flex-row gap-2 items-center"
+                className="mb-2 flex flex-row gap-2 items-start"
             >
                 <Avatar sx={{ width: 50, height: 50 }}>SA</Avatar>
-                <div
-                    id="new-post-text"
-                    className="px-2 py-1 grow border-0 outline-0 resize-none h-fit max-h-52 text-primary-500 dark:text-white overflow-y-auto"
-                    onInput={(el) => {
-                        processMentions(el.target.innerText);
 
-                        const finalElement =
-                            document.getElementById("new-post-text");
-                        let finalRange;
-                        let finalSelect;
-
-                        if (window.getSelection && document.createRange) {
-                            finalRange = document.createRange();
-                            finalRange.selectNodeContents(finalElement);
-                            finalRange.collapse(false);
-
-                            finalSelect = window.getSelection();
-                            finalSelect.removeAllRanges();
-
-                            finalSelect.addRange(finalRange);
-                        } else if (document.body.createTextRange) {
-                            finalRange = document.body.createTextRange();
-                            finalRange.moveToElementText(finalElement);
-                            finalRange.select();
-                        }
-                    }}
-                    placeholder="What's up?"
-                    contentEditable
-                />
+                {/*<MentionsInput value={this.state.value} onChange={handleChange}>*/}
+                {/*    <Mention trigger={"@"} data={users} renderSuggestions={renderUserSuggestion} />*/}
+                {/*    <Mention trigger={"#"} data={tags} renderSuggestions={renderTagSuggestion} />*/}
+                {/*</MentionsInput>*/}
+                <textarea  className="px-2 py-1 grow border-0 outline-0 resize-none h-fit max-h-52 bg-transparent text-primary-500 dark:text-white overflow-y-auto" placeholder="What's up?" />
+                {/*<div*/}
+                {/*    id="new-post-text"*/}
+                {/*    className="px-2 py-1 grow border-0 outline-0 resize-none h-fit max-h-52 text-primary-500
+                 dark:text-white overflow-y-auto"*/}
+                {/*    onInput={(el) => {*/}
+                {/*        processMentions(el.target.innerText);*/}
+                
+                {/*        const finalElement =*/}
+                {/*            document.getElementById("new-post-text");*/}
+                {/*        let finalRange;*/}
+                {/*        let finalSelect;*/}
+                
+                {/*        if (window.getSelection && document.createRange) {*/}
+                {/*            finalRange = document.createRange();*/}
+                {/*            finalRange.selectNodeContents(finalElement);*/}
+                {/*            finalRange.collapse(false);*/}
+                
+                {/*            finalSelect = window.getSelection();*/}
+                {/*            finalSelect.removeAllRanges();*/}
+                
+                {/*            finalSelect.addRange(finalRange);*/}
+                {/*        } else if (document.body.createTextRange) {*/}
+                {/*            finalRange = document.body.createTextRange();*/}
+                {/*            finalRange.moveToElementText(finalElement);*/}
+                {/*            finalRange.select();*/}
+                {/*        }*/}
+                {/*    }}*/}
+                {/*    placeholder="What's up?"*/}
+                {/*    contentEditable*/}
+                {/*/>*/}
             </div>
             <button className="mt-4 p-1 items-start w-20 rounded-2xl bg-secondary-500 dark:bg-secondary-500 text-white">
                 Post

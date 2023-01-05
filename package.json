@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cometchat-pro/chat": "^3.0.10",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@higherordermalfunction/expact": "^0.3.1",
@@ -17,7 +18,8 @@
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
     "react-mentions": "^4.4.7",
-    "react-router-dom": "^6.4.5"
+    "react-router-dom": "^6.4.5",
+    "react-scripts": "^4.0.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
